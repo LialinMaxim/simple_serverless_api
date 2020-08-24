@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "SiteLoderStack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-z69st25017vc"
+s3_prefix = "SiteLoderStack"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

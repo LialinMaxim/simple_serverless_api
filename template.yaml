@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  student-api
+  Sample SAM Template for student-api
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+
+  SiteLoaderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: site_load/
+      Handler: app.app
+      Runtime: python3.6
+      Events:
+        SiteLoader:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
+
+
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  SiteLoaderApi:
+    Description: "API Gateway endpoint URL for Prod stage for SiteLoader function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  SiteLoaderFunction:
+    Description: "SiteLoader Lambda Function ARN"
+    Value: !GetAtt SiteLoaderFunction.Arn
+  SiteLoaderFunctionIamRole:
+    Description: "Implicit IAM Role created for SiteLoader function"
+    Value: !GetAtt SiteLoaderFunctionRole.Arn
